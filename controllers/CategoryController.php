@@ -13,7 +13,26 @@ class CategoryController extends Controller
 {
     public function actionCreate()
     {
-        return $this->render('create');
+        $category = new Category();
+
+        if ($category->load(Yii::$app->request->post())) {
+
+            //Validation
+            if ($category->validate()) {
+
+                //Saves record
+                $category->save();
+
+                //Sends message
+                Yii::$app->getSession()->setFlash('success', 'Category Added');
+
+                return $this->redirect('/index.php?r=category');
+            }
+        }
+
+        return $this->render('create', [
+            'category' => $category,
+        ]);
     }
 
     public function actionIndex()
