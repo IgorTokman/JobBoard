@@ -35,6 +35,23 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['@']
+                    ],
+                ],
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         //Creates query

@@ -2,8 +2,13 @@
 <h2 class="page-header">
     <?=$job->title?>
     <small> in <?=$job->city?>, <?=$job->state?></small>
-    <a class="btn btn-primary pull-right" href="index.php?r=job/edit&id=<?=$job->id?>">Edit</a>
-    <a class="btn btn-danger pull-right" href="index.php?r=job/delete&id=<?=$job->id?>">Delete</a>
+
+    <?php if(\Yii::$app->user->identity->id === $job->user_id):?>
+        <span class="pull-right">
+            <a class="btn btn-primary" href="index.php?r=job/edit&id=<?=$job->id?>">Edit</a>
+            <a class="btn btn-danger" href="index.php?r=job/delete&id=<?=$job->id?>">Delete</a>
+        </span>
+    <?php endif;?>
 </h2>
 
 <div class="well">

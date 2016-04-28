@@ -37,6 +37,9 @@ class JobController extends \yii\web\Controller
     {
         $job = Job::findOne($id);
 
+        if($job->user_id !== Yii::$app->user->identity->id)
+            return $this->redirect('/index.php?r=job');
+        
         $job->delete();
 
         Yii::$app->getSession()->setFlash('success', 'Job Deleted');
@@ -47,6 +50,9 @@ class JobController extends \yii\web\Controller
     public function actionEdit($id)
     {
         $job = Job::findOne($id);
+
+        if($job->user_id !== Yii::$app->user->identity->id)
+            return $this->redirect('/index.php?r=job');
 
         if ($job->load(Yii::$app->request->post())) {
             if ($job->validate()) {
@@ -63,6 +69,23 @@ class JobController extends \yii\web\Controller
         return $this->render('edit', [
             'job' => $job,
         ]);
+    }
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'edit', 'delete'],
+                'rules' => [
+                        [
+                        'actions' => ['create', 'edit', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@']
+                        ],
+                    ],
+            ]
+        ];
     }
 
     public function actionDetails($id)
