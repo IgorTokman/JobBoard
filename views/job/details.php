@@ -2,47 +2,49 @@
 <h2 class="page-header">
     <?=$job->title?>
     <small> in <?=$job->city?>, <?=$job->state?></small>
+    <a class="btn btn-primary pull-right" href="index.php?r=job/edit&id=<?=$job->id?>">Edit</a>
+    <a class="btn btn-danger pull-right" href="index.php?r=job/delete&id=<?=$job->id?>">Delete</a>
 </h2>
 
 <div class="well">
-    Job Description
+    <h4>Job Description</h4>
     <?=$job->description?>
 </div>
 
 <ul class="list-group">
     <?php if(!empty($job->create_date)):?>
         <li class="list-group-item">
-            <strong>Listing Date</strong> <?=date("F j, Y, g:ia", strtotime($job->create_date))?>
+            <strong>Listing Date:</strong> <?=date("F j, Y, g:ia", strtotime($job->create_date))?>
         </li>
     <?php endif;?>
 
     <?php if(!empty($job->category)):?>
         <li class="list-group-item">
-            <strong>Category</strong> <?=$job->category->name?>
+            <strong>Category:</strong> <?=$job->category->name?>
         </li>
     <?php endif;?>
 
     <?php if(!empty($job->contact_email)):?>
         <li class="list-group-item">
-            <strong>Contact Email</strong> <?=$job->contact_email?>
+            <strong>Contact Email:</strong> <?=$job->contact_email?>
         </li>
     <?php endif;?>
 
     <?php if(!empty($job->contact_email)):?>
         <li class="list-group-item">
-            <strong>Employment Type</strong> <?=$job->type?>
+            <strong>Employment Type:</strong> <?=$job->type?>
         </li>
     <?php endif;?>
 
     <?php if(!empty($job->salary_renge)):?>
         <li class="list-group-item">
-            <strong>Salary Range</strong> <?=$job->salary_renge?>
+            <strong>Salary Range:</strong> <?=$job->salary_renge?>
         </li>
     <?php endif;?>
 
     <?php if(!empty($job->contact_phone)):?>
         <li class="list-group-item">
-            <strong>Contact Phone</strong> <?=$job->contact_phone?>
+            <strong>Contact Phone:</strong> <?=$job->contact_phone?>
         </li>
     <?php endif;?>
 
