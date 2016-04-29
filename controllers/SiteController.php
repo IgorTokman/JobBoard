@@ -11,6 +11,10 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    /**
+     * Determines the availability of main class methods
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -34,6 +38,9 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -47,11 +54,19 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * Displays the main page
+     * @return string
+     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
+    /**
+     * Realizes the mechanism of log in
+     * @return string|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -62,11 +77,16 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+        
         return $this->render('login', [
             'model' => $model,
         ]);
     }
 
+    /**
+     * Realizes the mechanism of log out
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -74,6 +94,10 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Realizes the mechanism of the fill contact form
+     * @return string|\yii\web\Response
+     */
     public function actionContact()
     {
         $model = new ContactForm();
@@ -85,10 +109,5 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }
