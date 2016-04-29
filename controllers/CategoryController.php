@@ -11,6 +11,10 @@ use app\models\Category;
 
 class CategoryController extends Controller
 {
+    /**
+     * Creates a new category
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $category = new Category();
@@ -35,6 +39,10 @@ class CategoryController extends Controller
         ]);
     }
 
+    /**
+     * Determines the availability of main class methods
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -52,6 +60,10 @@ class CategoryController extends Controller
         ];
     }
 
+    /**
+     * Displays the categories
+     * @return string|\yii\web\Response
+     */
     public function actionIndex()
     {
         //Creates query

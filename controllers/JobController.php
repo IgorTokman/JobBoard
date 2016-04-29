@@ -12,6 +12,10 @@ use app\models\Job;
 
 class JobController extends \yii\web\Controller
 {
+    /**
+     * Creates a new job
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $job = new Job();
@@ -33,6 +37,12 @@ class JobController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Deletes an existing job
+     * @param $id
+     * @return \yii\web\Response
+     * @throws \Exception
+     */
     public function actionDelete($id)
     {
         $job = Job::findOne($id);
@@ -47,6 +57,11 @@ class JobController extends \yii\web\Controller
         return $this->redirect('/index.php?r=job');
     }
 
+    /**
+     * Updates an existing job
+     * @param $id
+     * @return string|\yii\web\Response
+     */
     public function actionEdit($id)
     {
         $job = Job::findOne($id);
@@ -71,6 +86,10 @@ class JobController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Determines the availability of main class methods
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -88,6 +107,11 @@ class JobController extends \yii\web\Controller
         ];
     }
 
+    /**
+     * Displays the job details
+     * @param $id
+     * @return string
+     */
     public function actionDetails($id)
     {
         //Finds job by id
@@ -98,6 +122,10 @@ class JobController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Renders the job list
+     * @return string
+     */
     public function actionIndex()
     {
         //Creates query

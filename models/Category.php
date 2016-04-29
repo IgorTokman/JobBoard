@@ -14,6 +14,7 @@ use Yii;
 class Category extends \yii\db\ActiveRecord
 {
     /**
+     * Gets the class table name
      * @inheritdoc
      */
     public static function tableName()
@@ -22,6 +23,7 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
+     * Provides the validation rules
      * @inheritdoc
      */
     public function rules()
@@ -45,6 +47,10 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Fetches the category jobs
+     * @return \yii\db\ActiveQuery
+     */
     public function getJob(){
         return $this->hasMany(Job::className(), ['category_id' => 'id']);
     }

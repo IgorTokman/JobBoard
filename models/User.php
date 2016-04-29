@@ -9,11 +9,19 @@ class User extends ActiveRecord implements IdentityInterface
 {
     public $password_repeat;
 
+    /**
+     * Gets the class table name
+     * @return string
+     */
     public static function tableName()
     {
         return '{{%tbl_user}}';
     }
 
+    /**
+     * Provides the validation rules
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -46,6 +54,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Gets the user id
      * @return int|string current user ID
      */
     public function getId()
@@ -54,6 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Gets the user authKey
      * @return string current user auth key
      */
     public function getAuthKey()
@@ -62,6 +72,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Checks the user authKey
      * @param string $authKey
      * @return boolean if auth key is valid for current user
      */
@@ -70,6 +81,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->getAuthKey() === $authKey;
     }
 
+    /**
+     * Determines the action before the saving
+     * @param bool $insert
+     * @return bool
+     */
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert)) {
@@ -85,14 +101,27 @@ class User extends ActiveRecord implements IdentityInterface
         return true;
     }
 
+    /**
+     * Validates the password.
+     * @param $password
+     * @return bool
+     */
     public function validatePassword($password){
         return $this->password === md5($password);
     }
 
+    /**
+     * Performs the search by username
+     * @param $username
+     * @return null|static
+     */
     public function findByUsername($username){
         return User::findOne(['username' => $username]);
     }
 
+    /** Fetches the user jobs
+     * @return \yii\db\ActiveQuery
+     */
     public function getJob(){
         return $this->hasMany(Job::className(), ['user_id' => 'id']);
     }

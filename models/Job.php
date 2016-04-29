@@ -26,6 +26,7 @@ use Yii;
 class Job extends \yii\db\ActiveRecord
 {
     /**
+     * Gets the class table name
      * @inheritdoc
      */
     public static function tableName()
@@ -34,6 +35,7 @@ class Job extends \yii\db\ActiveRecord
     }
 
     /**
+     * Provides the validation rules
      * @inheritdoc
      */
     public function rules()
@@ -71,15 +73,27 @@ class Job extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Fetches the job category
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategory(){
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
-
+    /**
+     * Fetches the job author
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser(){
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
+    /**
+     * Determines the action before the saving
+     * @param bool $insert
+     * @return bool
+     */
     public function beforeSave($insert)
     {
         $this->user_id = \Yii::$app->user->identity->id;
